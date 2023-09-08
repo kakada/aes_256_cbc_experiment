@@ -1,0 +1,19 @@
+version: "3.9"
+
+volumes:
+  bundle:
+
+services:
+  app:
+    build: .
+    command: bash -c 'ruby aes.rb'
+    volumes:
+      - bundle:/app/.bundle # Dockerfile bundle install --path ~/.bundle
+    stdin_open: true
+    tty: true
+    env_file: app.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m
+        max-file: '10'
